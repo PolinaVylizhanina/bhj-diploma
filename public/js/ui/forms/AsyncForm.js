@@ -14,6 +14,13 @@ class AsyncForm {
    * */
   constructor(element) {
 
+    if(!element) {
+      throw new Error('Element is not found!')
+    }
+
+    this.element = element
+    this.registerEvents()
+
   }
 
   /**
@@ -21,6 +28,11 @@ class AsyncForm {
    * вызывает метод submit()
    * */
   registerEvents() {
+
+    this.element.addEventListener('submit', (e) => {
+      e.preventDefault()
+      this.submit()
+    })
 
   }
 
@@ -33,6 +45,13 @@ class AsyncForm {
    * */
   getData() {
 
+    const input = this.element.querySelectorAll('.form-control')
+    let data = {}
+
+    for (let item of input) {
+      data[item.name] = item.value
+    }
+    return data
   }
 
   onSubmit(options){
@@ -44,6 +63,6 @@ class AsyncForm {
    * данные, полученные из метода getData()
    * */
   submit() {
-
+    this.onSubmit(this.getData())
   }
 }
