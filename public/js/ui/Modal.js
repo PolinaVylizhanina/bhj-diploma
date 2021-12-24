@@ -13,6 +13,14 @@ class Modal {
    * */
   constructor(element){
 
+    if(!element) {
+      throw new Error('Element is not found!')
+    }
+
+    this.element = element
+    this.registerEvents()
+
+    
   }
 
   /**
@@ -21,6 +29,18 @@ class Modal {
    * (с помощью метода Modal.onClose)
    * */
   registerEvents() {
+    
+    // this.element.querySelectorAll('[data-dismiss="modal"]').forEach(element => element.addEventListener('click', e => {
+    //   this.onClose(e)
+    // }));
+
+    const dataDismiss = this.element.querySelectorAll('[data-dismiss="modal"]')
+
+    for (let i of dataDismiss) {
+      i.addEventListener('click', (e) => {
+        this.onClose(e)
+      })
+    }
 
   }
 
@@ -29,7 +49,8 @@ class Modal {
    * Закрывает текущее окно (Modal.close())
    * */
   onClose(e) {
-
+    e.preventDefault();
+    this.close()
   }
   /**
    * Открывает окно: устанавливает CSS-свойство display
@@ -37,11 +58,15 @@ class Modal {
    * */
   open() {
 
+    this.element.style.display = 'block'
+
   }
   /**
    * Закрывает окно: удаляет CSS-свойство display
    * */
   close(){
+
+    this.element.style.removeProperty('display')
 
   }
 }
