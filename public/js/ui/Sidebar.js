@@ -1,3 +1,5 @@
+//const { response } = require("express");
+
 /**
  * Класс Sidebar отвечает за работу боковой колонки:
  * кнопки скрытия/показа колонки в мобильной версии сайта
@@ -42,8 +44,12 @@ class Sidebar {
       App.getModal('login').open()
     }
 
-    // document.querySelector('.menu-item_logout').onclick = () => {
-    //   User.logout()
-    // }
+    document.querySelector('.menu-item_logout').onclick = () => {
+      User.logout( (err, response) => {
+      if (response.success) {
+        App.setState('init')
+      } 
+    })
+    }
   }
 }
