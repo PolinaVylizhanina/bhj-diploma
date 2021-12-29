@@ -12,7 +12,9 @@ class TransactionsWidget {
    * необходимо выкинуть ошибку.
    * */
   constructor( element ) {
-
+    if(!element) throw new Error ('element is not found')
+    this.element = element
+    this.registerEvents()
   }
   /**
    * Регистрирует обработчики нажатия на
@@ -22,5 +24,19 @@ class TransactionsWidget {
    * */
   registerEvents() {
 
+    this.element.addEventListener('click', (e) => {
+      e.preventDefault()
+      const incomeButton = e.target.closest('.create-income-button')
+      const expenseButton =  e.target.closest('.create-expense-button')
+
+      if(incomeButton) {
+        App.getModal('newIncome').open()
+      }
+
+      if(expenseButton) {
+        App.getModal('newExpense').open()
+      }
+
+    })
   }
 }
