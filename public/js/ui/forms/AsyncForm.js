@@ -47,10 +47,12 @@ class AsyncForm {
 
     const input = this.element.querySelectorAll('.form-control')
     let data = {}
-
-    for (let item of input) {
-      data[item.name] = item.value
-    }
+    input.forEach(e => {
+      data[e.name] = e.value
+    })
+    // for (let item of input) {
+    //   data[item.name] = item.value
+    // }
     return data
   }
 
@@ -63,6 +65,7 @@ class AsyncForm {
    * данные, полученные из метода getData()
    * */
   submit() {
-    this.onSubmit(this.getData())
+    let options = this.getData()
+    this.onSubmit(options)
   }
 }
