@@ -41,7 +41,7 @@ class CreateTransactionForm extends AsyncForm {
     this.element.closest('#modal-new-income') ? data.type = 'income' : data.type = 'expense';
    
     Transaction.create(data, (err, response) => {
-      if(response.seccess) {
+      if(response.success) {
         App.update()        
         this.element.reset() 
         App.getModal((data.type === 'income') ? 'newIncome' : 'newExpense').close()  
